@@ -1,0 +1,15 @@
+Package: keggR
+Title: A Tool to Parse the Results of BLAST/DIAMOND Similarity Searches Made Against the KEGG GENES Prokaryotes Database
+Version: 0.0.9
+Authors@R: 
+    person(given = "Igor",
+           family = "Pessi",
+           role = c("aut", "cre"),
+           email = "igor.pessi@gmail.com")
+Description: A tool to parse the results of BLAST/DIAMOND similarity 
+    searches made against the KEGG GENES prokaryotes database
+License: Distributed under the terms of the GNU AGPL v3 <https://www.gnu.org/licenses/agpl.html>
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.1.0
+Imports: tidyverse
