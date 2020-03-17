@@ -13,9 +13,10 @@
 # ADD CHECK FOR MINPATH
 
 runMinpath <- function (input, debug = FALSE) {
-  seqs  <- input@seqs
   stats <- input@stats
-  input <- getKOtable(input)
+
+  input <- input %>%
+    getKOtable
 
   minpath <- list(run = TRUE,
                   pathways = list(bad = NULL,
@@ -87,7 +88,7 @@ runMinpath <- function (input, debug = FALSE) {
   }
 
   # Get results
-  results <- new("ko_tbl", seqs = seqs, stats = stats, minpath = minpath, data = input)
+  results <- new("ko_tbl", stats = stats, minpath = minpath, data = input)
 
   return(results)
 }

@@ -14,7 +14,8 @@
 summariseKEGG <- function(input) {
   minpath <- input@minpath
 
-  input <- getKOtable(input) %>%
+  input <- input %>%
+    getKOtable %>%
     select(sequence, KO, gene) %>%
     filter(KO != "") %>%
     unique

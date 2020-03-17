@@ -12,8 +12,8 @@
 # ADD CHECK FOR loadKEGG()
 
 assignKEGG <- function(input) {
-  seqs <- input@data %>%
-    pull(sequence)
+  input <- input %>%
+    getBlastTable
 
   stats <- list(nseqs = list(total = NULL,
                              KO = NULL,
@@ -22,14 +22,12 @@ assignKEGG <- function(input) {
                 pathways = NULL,
                 modules = NULL)
 
-  stats[["nseqs"]][["total"]] <- seqs %>%
+  stats[["nseqs"]][["total"]] <- input %>%
+    pull(sequence) %>%
     unique %>%
     length
 
   minpath <- list(run = FALSE)
-
-  input <- input@data %>%
-    select(sequence, target)
 
   # Assign KOs
   object <- input %>%
@@ -84,7 +82,7 @@ assignKEGG <- function(input) {
     unique %>%
     ungroup
 
-  results <- new("ko_tbl", seqs = seqs, stats = stats, minpath = minpath, data = object)
+  results <- new("ko_tbl", stats = stats, minpath = minpath, data = object)
 
   return(results)
 }

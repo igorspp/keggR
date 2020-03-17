@@ -2,8 +2,7 @@
 setClass("blast_tbl", slots = list(data = "data.frame"))
 
 #' @export
-setClass("ko_tbl", slots = list(seqs = "character",
-                                stats = "list",
+setClass("ko_tbl", slots = list(stats = "list",
                                 minpath = "list",
                                 data = "data.frame"))
 

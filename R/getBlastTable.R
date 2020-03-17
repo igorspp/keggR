@@ -13,7 +13,6 @@
 getBlastTable <- function(object) {
   object <- object@data %>%
     separate_rows(sequence, sep = ",") %>%
-    arrange(sequence) %>%
     as_tibble
 
   return(object)

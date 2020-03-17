@@ -11,7 +11,8 @@
 # ADD CHECK FOR list
 
 mergeSummaries <- function(input) {
-  SAMPLES <- input %>% names
+  SAMPLES <- input %>%
+    names
 
   # Pathways
   pathways_lvl1 <- lapply(SAMPLES, function(x) {

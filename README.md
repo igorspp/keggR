@@ -3,14 +3,14 @@
 A tool to parse the results of BLAST/DIAMOND similarity searches made against the KEGG GENES prokaryotes database.  
 Distributed under the terms of the GNU AGPL v3 <<https://www.gnu.org/licenses/agpl.html>>.
 
-Version: 0.0.9 
+Version: 0.0.9
 Author: Igor S. Pessi  
 E-mail: igor.pessi@gmail.com
 
 ## Installing
 
     library("devtools")
-    install_github(igorspp/keggR)
+    install_github("igorspp/keggR")
 
 ## Usage example
 
@@ -18,7 +18,7 @@ E-mail: igor.pessi@gmail.com
 
     library("tidyverse")
     library("keggR")
-    
+
 ### Format the KEGG auxiliary data
 
 The first step is to run *formatKEGG()* to format the KEGG auxiliary files.  
@@ -43,12 +43,12 @@ The primary input for keggR is a BLAST/DIAMOND output table in the tabular forma
 keggR does not perform any filtering of hits, so make sure you use appropriate percentage and/or evalue cutoffs.  
 
     blast <- readBlast("examples/input_data.txt")
-    
+
     blast
-    
+
       ## keggR BLAST table
       ## Access data with getBlastTable()
-      
+
 To acess the data we use *getBlastTable()*:
 
     getBlastTable(blast)
@@ -58,7 +58,7 @@ To acess the data we use *getBlastTable()*:
       ##    <chr>    <chr>           
       ##  1 read1    gsu:GSU2105     
       ##  2 read100  nao:Y958_17325  
-      ##  3 read1007 saci:Sinac_6173 
+      ##  3 read1007 saci:Sinac_6173
       ##  4 read101  mno:Mnod_6583   
       ##  5 read1011 say:TPY_0862    
       ##  6 read1018 fgi:OP10G_3216  
@@ -87,31 +87,31 @@ For this you need to have MinPath installed in your $PATH.
 
       ## keggR KO table
       ## Access data with getKOtable()
-      ## 
+      ##
       ## SEQUENCES
       ## ---------
-      ## Sequences in input file:               994 
-      ## Sequences assigned to a KO identifier: 554 
-      ## Sequences assigned to a pathway:       386 
-      ## Sequences assigned to a module:        248 
-      ## 
+      ## Sequences in input file:               994
+      ## Sequences assigned to a KO identifier: 554
+      ## Sequences assigned to a pathway:       386
+      ## Sequences assigned to a module:        248
+      ##
       ## PATHWAYS
       ## --------
-      ## Number of pathways: 154 
-      ## 
+      ## Number of pathways: 154
+      ##
       ## MODULES
       ## -------
-      ## Number of modules: 161 
-      ## 
+      ## Number of modules: 161
+      ##
       ## MINPATH
       ## -------
-      ## Pathways removed: 83 
-      ## Modules removed:  59 
+      ## Pathways removed: 83
+      ## Modules removed:  59
 
 To acess the data we use *getKOTable()*:
-    
+
     getKOtable(KOtable)
-    
+
       ## # A tibble: 2,194 x 5
       ##    sequence KO     gene                                               pathway                                   module                            
       ##    <chr>    <chr>  <chr>                                              <chr>                                     <chr>                             
@@ -132,7 +132,7 @@ To acess the data we use *getKOTable()*:
       summariseKEGG
 
     summary
-    
+
       ## keggR summary table
       ## Access data with getSummary()    
 
