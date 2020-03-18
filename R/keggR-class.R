@@ -60,3 +60,9 @@ as.list.sum_tbl <- function(x) {
        modules = x@modules)
 }
 setMethod("as.list", "sum_tbl", as.list.sum_tbl)
+
+#' @export
+as_blast_tbl <- function(x) {
+  new("blast_tbl", data = x)
+}
+

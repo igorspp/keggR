@@ -1,6 +1,25 @@
+#' KOtable2ANVIO()
+#'
+#' KOtable2ANVIO
+#'
+#' @param input keggR KO table
+#' @return A tibble
+#' @export
+#' @examples
+#' KOtable2ANVIO(blast)
+
+# ADD CHECK FOR ko_tbl
+
 KOtable2ANVIO <- function(input) {
-  input %>%
+  input <- input %>%
+    getKOtable
+
+  object <- input %>%
+    filter(! KO %in% NA) %>%
     mutate(source = "KEGG") %>%
-    select(sequence, source, KO, gene, evalue) %>%
-    set_names(c("gene_callers_id", "source", "accession", "function", "e_value"))
+    mutate(e_value = 0) %>%
+    select(gene_callers_id = sequence, source, accession = KO, `function` = gene, e_value) %>%
+    unique
+
+  return(object)
 }
