@@ -63,6 +63,12 @@ setMethod("as.list", "sum_tbl", as.list.sum_tbl)
 
 #' @export
 as_blast_tbl <- function(x) {
-  new("blast_tbl", data = x)
+  # ADD CHECK FOR COLUMNS
+  object <- x %>%
+    select(sequence, target)
+
+  object <- new("blast_tbl", data = x)
+
+  return(object)
 }
 

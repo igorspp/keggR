@@ -6,4 +6,5 @@
 #' @import dplyr
 #' @import readr
 #' @import purrr
+#' @import tidyr
 NULL
