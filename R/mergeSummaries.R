@@ -20,28 +20,28 @@ mergeSummaries <- function(input) {
       getSummary("pathways", "level1") %>%
       mutate(sample = x)
   }) %>% bind_rows %>%
-    spread(sample, count)
+    spread(sample, count, fill = 0)
 
   pathways_lvl2 <- lapply(SAMPLES, function(x) {
     input[[x]] %>%
       getSummary("pathways", "level2") %>%
       mutate(sample = x)
   }) %>% bind_rows %>%
-    spread(sample, count)
+    spread(sample, count, fill = 0)
 
   pathways_lvl3 <- lapply(SAMPLES, function(x) {
     input[[x]] %>%
       getSummary("pathways", "level3") %>%
       mutate(sample = x)
   }) %>% bind_rows %>%
-    spread(sample, count)
+    spread(sample, count, fill = 0)
 
   pathways_lvl4 <- lapply(SAMPLES, function(x) {
     input[[x]] %>%
       getSummary("pathways", "level4") %>%
       mutate(sample = x)
   }) %>% bind_rows %>%
-    spread(sample, count)
+    spread(sample, count, fill = 0)
 
   # Modules
   modules_lvl1 <- lapply(SAMPLES, function(x) {
@@ -49,35 +49,35 @@ mergeSummaries <- function(input) {
       getSummary("modules", "level1") %>%
       mutate(sample = x)
   }) %>% bind_rows %>%
-    spread(sample, count)
+    spread(sample, count, fill = 0)
 
   modules_lvl2 <- lapply(SAMPLES, function(x) {
     input[[x]] %>%
       getSummary("modules", "level2") %>%
       mutate(sample = x)
   }) %>% bind_rows %>%
-    spread(sample, count)
+    spread(sample, count, fill = 0)
 
   modules_lvl3 <- lapply(SAMPLES, function(x) {
     input[[x]] %>%
       getSummary("modules", "level3") %>%
       mutate(sample = x)
   }) %>% bind_rows %>%
-    spread(sample, count)
+    spread(sample, count, fill = 0)
 
   modules_lvl4 <- lapply(SAMPLES, function(x) {
     input[[x]] %>%
       getSummary("modules", "level3") %>%
       mutate(sample = x)
   }) %>% bind_rows %>%
-    spread(sample, count)
+    spread(sample, count, fill = 0)
 
   modules_lvl5 <- lapply(SAMPLES, function(x) {
     input[[x]] %>%
       getSummary("modules", "level5") %>%
       mutate(sample = x)
   }) %>% bind_rows %>%
-    spread(sample, count)
+    spread(sample, count, fill = 0)
 
   # Return results
   pathways <- list(level1 = pathways_lvl1,
