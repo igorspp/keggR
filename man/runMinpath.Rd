@@ -4,7 +4,7 @@
 \alias{runMinpath}
 \title{runMinpath()}
 \usage{
-runMinpath(input, debug = FALSE)
+runMinpath(input, path, debug = FALSE)
 }
 \arguments{
 \item{input}{keggR KO table}
@@ -16,5 +16,5 @@ A keggR KO table
 runMinpath.
 }
 \examples{
-runMinpath(KOtable)
+runMinpath(KOtable, "/home/igorspp/MinPath")
 }

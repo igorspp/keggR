@@ -3,7 +3,7 @@
 A tool to parse the results of BLAST/DIAMOND similarity searches made against the KEGG GENES prokaryotes database.  
 Distributed under the terms of the GNU AGPL v3 <<https://www.gnu.org/licenses/agpl.html>>.
 
-Version: 0.0.9
+Version: 0.0.9  
 Author: Igor S. Pessi  
 E-mail: igor.pessi@gmail.com
 

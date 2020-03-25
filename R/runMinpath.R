@@ -6,13 +6,13 @@
 #' @return A keggR KO table
 #' @export
 #' @examples
-#' runMinpath(KOtable)
+#' runMinpath(KOtable, "/home/igorspp/MinPath")
 
 # ADD CHECK FOR ko_tbl
 # ADD CHECK FOR loadKEGG()
 # ADD CHECK FOR MINPATH
 
-runMinpath <- function (input, debug = FALSE) {
+runMinpath <- function (input, path, debug = FALSE) {
   stats <- input@stats
 
   input <- input %>%
@@ -42,8 +42,14 @@ runMinpath <- function (input, debug = FALSE) {
   write_delim(.KO00002.minpath, "KO00002.minpath", delim = "\t", col_names = F)
 
   # Run Minpath
-  system2("/bin/bash", args = c('-ic', shQuote('MinPath1.4.py -any minpath.pathways.in.txt -map KO00001.minpath -report minpath.pathways.out.txt &> minpath.pathways.log.txt')))
-  system2("/bin/bash", args = c('-ic', shQuote('MinPath1.4.py -any minpath.modules.in.txt  -map KO00002.minpath -report minpath.modules.out.txt  &> minpath.modules.log.txt')))
+  # system2("/bin/bash", args = c('-ic', shQuote('MinPath1.4.py -any minpath.pathways.in.txt -map KO00001.minpath -report minpath.pathways.out.txt &> minpath.pathways.log.txt')))
+  # system2("/bin/bash", args = c('-ic', shQuote('MinPath1.4.py -any minpath.modules.in.txt  -map KO00002.minpath -report minpath.modules.out.txt  &> minpath.modules.log.txt')))
+
+  Sys.setenv(PATH = paste(path, Sys.getenv("PATH"), sep = .Platform$path.sep),
+             MinPath = path)
+
+  system("bash -c 'MinPath1.4.py -any minpath.pathways.in.txt -map KO00001.minpath -report minpath.pathways.out.txt &> minpath.pathways.log.txt'")
+  system("bash -c 'MinPath1.4.py -any minpath.modules.in.txt -map KO00002.minpath -report minpath.modules.out.txt &> minpath.modules.log.txt'")
 
   # Read MinPath results
   minpath_pathways <- read_delim("minpath.pathways.out.txt", delim = " ", trim_ws = T, col_names = F,
