@@ -10,10 +10,15 @@
 
 # ADD CHECK FOR blast_tbl
 
-getBlastTable <- function(object) {
-  object <- object@data %>%
+getBlastTable <- function(input) {
+  data <- input@data %>%
     separate_rows(sequence, sep = ",") %>%
-    as_tibble
+    arrange(sequence, target)
 
-  return(object)
+  if (input@e_value %>% length > 0) {
+    data <- data %>%
+      mutate(e_value = input@e_value)
+  }
+
+  return(data)
 }
