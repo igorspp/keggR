@@ -10,10 +10,15 @@
 
 # ADD CHECK FOR ko_tbl
 
-getKOtable <- function(object) {
-  object <- object@data %>%
+getKOtable <- function(input) {
+  data <- input@data %>%
     separate_rows(sequence, sep = ",") %>%
-    as_tibble
+    arrange(sequence, KO)
 
-  return(object)
+  if (input@e_value %>% length > 0) {
+    data <- data %>%
+      mutate(e_value = input@e_value)
+  }
+
+  return(data)
 }
