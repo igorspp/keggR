@@ -4,7 +4,7 @@
 \alias{KOtable2ANVIO}
 \title{KOtable2ANVIO()}
 \usage{
-KOtable2ANVIO(input)
+KOtable2ANVIO(input, source)
 }
 \arguments{
 \item{input}{keggR KO table}

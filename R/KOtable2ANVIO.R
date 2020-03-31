@@ -10,13 +10,13 @@
 
 # ADD CHECK FOR ko_tbl
 
-KOtable2ANVIO <- function(input) {
+KOtable2ANVIO <- function(input, source) {
   input <- input %>%
     getKOtable
 
   object <- input %>%
     filter(! KO %in% NA) %>%
-    mutate(source = "KEGG") %>%
+    mutate(source = source) %>%
     mutate(e_value = 0) %>%
     select(gene_callers_id = sequence, source, accession = KO, `function` = gene, e_value) %>%
     unique
