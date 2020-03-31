@@ -1,10 +1,12 @@
 #' @export
-setClass("blast_tbl", slots = list(data = "data.frame"))
+setClass("blast_tbl", slots = list(data = "data.frame",
+                                   e_value = "numeric"))
 
 #' @export
 setClass("ko_tbl", slots = list(stats = "list",
                                 minpath = "list",
-                                data = "data.frame"))
+                                data = "data.frame",
+                                e_value = "numeric"))
 
 #' @export
 setClass("sum_tbl", slots = list(pathways = "list",
