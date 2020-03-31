@@ -11,15 +11,19 @@
 # ADD CHECK FOR ko_tbl
 
 KOtable2ANVIO <- function(input, source) {
-  input <- input %>%
+  data <- input %>%
     getKOtable
 
-  object <- input %>%
+  if (is.null(input@e_value)) {
+    data <- data %>%
+      mutate(e_value = 0)
+  }
+
+  data <- data %>%
     filter(! KO %in% NA) %>%
     mutate(source = source) %>%
-    mutate(e_value = 0) %>%
     select(gene_callers_id = sequence, source, accession = KO, `function` = gene, e_value) %>%
     unique
 
-  return(object)
+  return(data)
 }
