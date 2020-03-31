@@ -4,7 +4,7 @@
 \alias{readHMM}
 \title{readHMM()}
 \usage{
-readHMM(file)
+readHMM(file, e_value = FALSE)
 }
 \arguments{
 \item{input}{HMM file}

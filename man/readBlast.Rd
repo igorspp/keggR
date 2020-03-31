@@ -4,7 +4,7 @@
 \alias{readBlast}
 \title{readBlast()}
 \usage{
-readBlast(file)
+readBlast(file, e_value = FALSE)
 }
 \arguments{
 \item{input}{BLAST file}

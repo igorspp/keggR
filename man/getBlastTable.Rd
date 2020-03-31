@@ -4,7 +4,7 @@
 \alias{getBlastTable}
 \title{getBlastTable()}
 \usage{
-getBlastTable(object)
+getBlastTable(input)
 }
 \arguments{
 \item{input}{keggR BLAST table}

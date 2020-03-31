@@ -4,7 +4,7 @@
 \alias{getKOtable}
 \title{getKOtable()}
 \usage{
-getKOtable(object)
+getKOtable(input)
 }
 \arguments{
 \item{input}{keggR KO table}
