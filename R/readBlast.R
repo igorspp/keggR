@@ -30,8 +30,7 @@ readBlast <- function(file, e_value = FALSE) {
 
   if (isTRUE(e_value)) {
     results <- new("blast_tbl", data = data, e_value = e_values)
-  }
-  else {
+  } else {
     results <- new("blast_tbl", data = data)
   }
 

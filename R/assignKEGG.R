@@ -37,8 +37,7 @@ assignKEGG <- function(input) {
   if (input@e_value %>% length > 0) {
     data <- data %>%
       select(sequence, e_value, KO, gene)
-  }
-  else {
+  } else {
     data <- data %>%
       select(sequence, KO, gene)
   }
@@ -87,11 +86,17 @@ assignKEGG <- function(input) {
   data <- data %>%
     arrange(sequence, KO)
 
-  e_values <- data %>%
-    pull(e_value)
+  if (input@e_value %>% length > 0) {
+    e_values <- data2 %>%
+      pull(e_value)
+
+    data2 <- data2 %>%
+      select(-e_value)
+  } else {
+    e_values <- as.numeric()
+  }
 
   data <- data %>%
-    select(-e_value) %>%
     group_by(KO, gene, pathway, module) %>%
     mutate(sequence = paste0(sequence, collapse = ",")) %>%
     unique %>%
