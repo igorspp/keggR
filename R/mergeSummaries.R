@@ -3,12 +3,10 @@
 #' mergeSummaries.
 #'
 #' @param input List of keggR summary tables
-#' @return A keggR summary table
+#' @return A list
 #' @export
 #' @examples
 #' mergeSummaries(list)
-
-# ADD CHECK FOR list
 
 mergeSummaries <- function(input) {
   SAMPLES <- input %>%
@@ -91,7 +89,5 @@ mergeSummaries <- function(input) {
                   level4 = modules_lvl4,
                   level5 = modules_lvl5)
 
-  results <- new("sum_tbl", pathways = pathways, modules = modules)
-
-  return(results)
+  results <- list(pathways = pathways, modules = modules)
 }

@@ -8,101 +8,41 @@
 #' @examples
 #' assignKEGG(blast)
 
-# ADD CHECK FOR blast_tbl
-# ADD CHECK FOR loadKEGG()
-
 assignKEGG <- function(input) {
+  # Check input
+  if (class(input)[1] != "blast_tbl") {
+    stop("input is not a keggR BLAST table object")
+  }
+
+  # Check if auxiliary files are loaded
+  if (!exists(".PROKARYOTES.DAT") | !exists(".KO00000")) {
+    stop("please run loadKEGG() first")
+  }
+
+  # Get BLAST table
   data <- input %>%
     getBlastTable
-
-  stats <- list(nseqs = list(total = NULL,
-                             KO = NULL,
-                             pathways = NULL,
-                             modules = NULL),
-                pathways = NULL,
-                modules = NULL)
-
-  stats[["nseqs"]][["total"]] <- data %>%
-    pull(sequence) %>%
-    unique %>%
-    length
-
-  minpath <- list(run = FALSE)
 
   # Assign KOs
   data <- data %>%
     left_join(.PROKARYOTES.DAT, by = c("target" = "gene")) %>%
+    filter(! KO %in% NA) %>%
+    select(-target)
+
+  # Assign gene names
+  data <- data %>%
     left_join(.KO00000, by = "KO")
 
-  if (input@e_value %>% length > 0) {
-    data <- data %>%
-      select(sequence, e_value, KO, gene)
-  } else {
-    data <- data %>%
-      select(sequence, KO, gene)
-  }
-
-  stats[["nseqs"]][["KO"]] <- data %>%
-    filter(KO != "") %>%
-    pull(sequence) %>%
-    unique %>%
-    length
-
-  # Assign pathways
+  # Compact data frame
   data <- data %>%
-    left_join(.KO00001 %>% select(KO, level3), by = "KO") %>%
-    rename(pathway = level3)
-
-  stats[["nseqs"]][["pathways"]] <- data %>%
-    filter(pathway != "") %>%
-    pull(sequence) %>%
-    unique %>%
-    length
-
-  stats[["pathways"]] <- data %>%
-    filter(pathway != "") %>%
-    pull(pathway) %>%
-    unique %>%
-    length
-
-  # Assign modules
-  data <- data %>%
-    left_join(.KO00002 %>% select(KO, level4), by = "KO") %>%
-    rename(module = level4)
-
-  stats[["nseqs"]][["modules"]] <- data %>%
-    filter(module != "") %>%
-    pull(sequence) %>%
-    unique %>%
-    length
-
-  stats[["modules"]] <- data %>%
-    filter(module != "") %>%
-    pull(module) %>%
-    unique %>%
-    length
-
-  # Return results
-  data <- data %>%
-    arrange(sequence, KO)
-
-  if (input@e_value %>% length > 0) {
-    e_values <- data %>%
-      pull(e_value)
-
-    data <- data %>%
-      select(-e_value)
-  } else {
-    e_values <- as.numeric()
-  }
-
-  data <- data %>%
-    group_by(KO, gene, pathway, module) %>%
-    mutate(sequence = paste0(sequence, collapse = ",")) %>%
+    group_by(KO, gene) %>%
+    mutate(sequence = paste0(sequence, collapse = "!!!")) %>%
+    mutate(evalue = paste0(evalue, collapse = "!!!")) %>%
     unique %>%
     ungroup
 
-  results <- new("ko_tbl", stats = stats, minpath = minpath, data = data, e_value = e_values)
+  # Return results
+  results <- new("ko_tbl", data = data)
 
   return(results)
 }

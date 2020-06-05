@@ -13,7 +13,7 @@ getKOtable(input)
 A tibble
 }
 \description{
-getKOtable.
+Extract KO table from a keggR KO table object.
 }
 \examples{
 getKOtable(KOtable)

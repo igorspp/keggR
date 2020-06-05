@@ -4,13 +4,13 @@
 \alias{summariseKEGG}
 \title{summariseKEGG()}
 \usage{
-summariseKEGG(input)
+summariseKEGG(input, minpath = NULL, debug = FALSE)
 }
 \arguments{
 \item{input}{keggR KO table}
 }
 \value{
-A keggR summary table
+A list
 }
 \description{
 summariseKEGG.

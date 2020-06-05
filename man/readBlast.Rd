@@ -4,17 +4,17 @@
 \alias{readBlast}
 \title{readBlast()}
 \usage{
-readBlast(file, e_value = FALSE)
+readBlast(file)
 }
 \arguments{
 \item{input}{BLAST file}
 }
 \value{
-A keggR blast table
+A keggR BLAST table
 }
 \description{
-Read BLAST results.
+Read BLAST results in the tabular format (outfmt 6).
 }
 \examples{
-readBlast("/examples/input_data.txt")
+readBlast("examples/input_data.txt")
 }

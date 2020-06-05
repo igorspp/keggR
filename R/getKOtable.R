@@ -1,6 +1,6 @@
 #' getKOtable()
 #'
-#' getKOtable.
+#' Extract KO table from a keggR KO table object.
 #'
 #' @param input keggR KO table
 #' @return A tibble
@@ -8,17 +8,15 @@
 #' @examples
 #' getKOtable(KOtable)
 
-# ADD CHECK FOR ko_tbl
-
 getKOtable <- function(input) {
-  data <- input@data %>%
-    separate_rows(sequence, sep = ",") %>%
-    arrange(sequence, KO)
-
-  if (input@e_value %>% length > 0) {
-    data <- data %>%
-      mutate(e_value = input@e_value)
+  # Check input
+  if (class(input)[1] != "ko_tbl") {
+    stop("input is not a keggR KO table object")
   }
+
+  # De-compact data frame
+  data <- input@data %>%
+    separate_rows(c(sequence, evalue), sep = "!!!")
 
   return(data)
 }

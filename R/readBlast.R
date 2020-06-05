@@ -1,38 +1,37 @@
 #' readBlast()
 #'
-#' Read BLAST results.
+#' Read BLAST results in the tabular format (outfmt 6).
 #'
 #' @param input BLAST file
-#' @return A keggR blast table
+#' @return A keggR BLAST table
 #' @export
 #' @examples
-#' readBlast("/examples/input_data.txt")
+#' readBlast("examples/input_data.txt")
 
-# ADD CHECK TO NOT ALLOW COMMAS IN SEQUENCE NAME
+readBlast <- function(file) {
+  # Check input
+  test_input <- suppressMessages(read_delim(file, delim = "\t", n_max = 1, col_names = F))
 
-readBlast <- function(file, e_value = FALSE) {
-  data <-  read_delim(file,
-                      delim = "\t",
+  if(test_input %>% names %>% length != 12) {
+    stop("file does not look like a BLAST tabular table (outfmt 6)")
+  }
+
+  # Read data
+  data <-  read_delim(file, delim = "\t",
                       col_names = c("qseqid", "sseqid", "pident", "length", "mismatch", "gapopen", "qstart", "qend", "sstart", "send", "evalue", "bitscore"),
                       col_types = cols_only(qseqid = col_character(), sseqid = col_character(), evalue = col_double())) %>%
-    rename(sequence = qseqid, target = sseqid, e_value = evalue) %>%
-    arrange(sequence, target)
+    select(sequence = qseqid, target = sseqid, evalue)
 
-  e_values <- data %>%
-    pull(e_value)
-
+  # Compact data frame
   data <- data %>%
-    select(-e_value) %>%
     group_by(target) %>%
-    mutate(sequence = paste0(sequence, collapse = ",")) %>%
+    mutate(sequence = paste0(sequence, collapse = "!!!")) %>%
+    mutate(evalue = paste0(evalue, collapse = "!!!")) %>%
     unique %>%
     ungroup
 
-  if (isTRUE(e_value)) {
-    results <- new("blast_tbl", data = data, e_value = e_values)
-  } else {
-    results <- new("blast_tbl", data = data)
-  }
+  # Return results
+  results <- new("blast_tbl", data = data)
 
   return(results)
 }

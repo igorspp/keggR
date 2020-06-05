@@ -10,7 +10,7 @@ mergeSummaries(input)
 \item{input}{List of keggR summary tables}
 }
 \value{
-A keggR summary table
+A list
 }
 \description{
 mergeSummaries.
