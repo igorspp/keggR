@@ -13,7 +13,7 @@ getBlastTable(input)
 A tibble
 }
 \description{
-getBlastTable.
+Extract BLAST table from a keggR BLAST table object.
 }
 \examples{
 getBlastTable(blast)

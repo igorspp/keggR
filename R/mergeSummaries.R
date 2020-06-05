@@ -3,12 +3,10 @@
 #' mergeSummaries.
 #'
 #' @param input List of keggR summary tables
-#' @return A keggR summary table
+#' @return A list
 #' @export
 #' @examples
 #' mergeSummaries(list)
-
-# ADD CHECK FOR list
 
 mergeSummaries <- function(input) {
   SAMPLES <- input %>%
@@ -16,65 +14,56 @@ mergeSummaries <- function(input) {
 
   # Pathways
   pathways_lvl1 <- lapply(SAMPLES, function(x) {
-    input[[x]] %>%
-      getSummary("pathways", "level1") %>%
+    input[[x]][["pathways"]][["level1"]] %>%
       mutate(sample = x)
   }) %>% bind_rows %>%
     spread(sample, count, fill = 0)
 
   pathways_lvl2 <- lapply(SAMPLES, function(x) {
-    input[[x]] %>%
-      getSummary("pathways", "level2") %>%
+    input[[x]][["pathways"]][["level2"]] %>%
       mutate(sample = x)
   }) %>% bind_rows %>%
     spread(sample, count, fill = 0)
 
   pathways_lvl3 <- lapply(SAMPLES, function(x) {
-    input[[x]] %>%
-      getSummary("pathways", "level3") %>%
+    input[[x]][["pathways"]][["level3"]] %>%
       mutate(sample = x)
   }) %>% bind_rows %>%
     spread(sample, count, fill = 0)
 
   pathways_lvl4 <- lapply(SAMPLES, function(x) {
-    input[[x]] %>%
-      getSummary("pathways", "level4") %>%
+    input[[x]][["pathways"]][["level4"]] %>%
       mutate(sample = x)
   }) %>% bind_rows %>%
     spread(sample, count, fill = 0)
 
   # Modules
   modules_lvl1 <- lapply(SAMPLES, function(x) {
-    input[[x]] %>%
-      getSummary("modules", "level1") %>%
+    input[[x]][["modules"]][["level1"]] %>%
       mutate(sample = x)
   }) %>% bind_rows %>%
     spread(sample, count, fill = 0)
 
   modules_lvl2 <- lapply(SAMPLES, function(x) {
-    input[[x]] %>%
-      getSummary("modules", "level2") %>%
+    input[[x]][["modules"]][["level2"]] %>%
       mutate(sample = x)
   }) %>% bind_rows %>%
     spread(sample, count, fill = 0)
 
   modules_lvl3 <- lapply(SAMPLES, function(x) {
-    input[[x]] %>%
-      getSummary("modules", "level3") %>%
+    input[[x]][["modules"]][["level3"]] %>%
       mutate(sample = x)
   }) %>% bind_rows %>%
     spread(sample, count, fill = 0)
 
   modules_lvl4 <- lapply(SAMPLES, function(x) {
-    input[[x]] %>%
-      getSummary("modules", "level4") %>%
+    input[[x]][["modules"]][["level4"]] %>%
       mutate(sample = x)
   }) %>% bind_rows %>%
     spread(sample, count, fill = 0)
 
   modules_lvl5 <- lapply(SAMPLES, function(x) {
-    input[[x]] %>%
-      getSummary("modules", "level5") %>%
+    input[[x]][["modules"]][["level5"]] %>%
       mutate(sample = x)
   }) %>% bind_rows %>%
     spread(sample, count, fill = 0)
@@ -91,7 +80,7 @@ mergeSummaries <- function(input) {
                   level4 = modules_lvl4,
                   level5 = modules_lvl5)
 
-  results <- new("sum_tbl", pathways = pathways, modules = modules)
+  results <- list(pathways = pathways, modules = modules)
 
   return(results)
 }
