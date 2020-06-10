@@ -81,6 +81,9 @@ mergeSummaries <- function(input) {
                   level5 = modules_lvl5)
 
   results <- list(pathways = pathways, modules = modules)
+<<<<<<< HEAD
 
   return(results)
+=======
+>>>>>>> 68e3f687b370335d39c3f006d2ef1ca065b8a4dc
 }
