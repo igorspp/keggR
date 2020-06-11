@@ -3,7 +3,7 @@
 A tool to parse the results of BLAST/DIAMOND similarity searches made against the KEGG GENES prokaryotes database.  
 Distributed under the terms of the GNU AGPL v3 <<https://www.gnu.org/licenses/agpl.html>>.
 
-Version: 0.0.9.1  
+Version: 0.9.1  
 Author: Igor S. Pessi  
 E-mail: igor.pessi@gmail.com
 
@@ -39,7 +39,7 @@ For this, you need to run *loadKEGG()* giving the path to where the formatted fi
 ### Read BLAST results
 
 The primary input for keggR is a BLAST/DIAMOND output table in the tabular format (outfmt 6).  
-keggR does not perform any filtering of hits, so make sure you use appropriate percentage and/or evalue cutoffs.  
+The BLAST table can be filtered based on an evalue threshold by passing the EVALUE argument (default EVALUE = 0, i.e. no filtering is done).  
 
     blast <- readBlast("examples/input_data.txt")
 
