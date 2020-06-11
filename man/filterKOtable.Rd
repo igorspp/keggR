@@ -10,10 +10,10 @@ filterKOtable(input, seqs)
 \item{input}{keggR KO table}
 }
 \value{
-A keggR KO table
+A filtered keggR KO table
 }
 \description{
-filterKOtable
+filterKOtable.
 }
 \examples{
 filterKOtable(blast)

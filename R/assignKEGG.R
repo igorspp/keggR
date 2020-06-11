@@ -23,15 +23,25 @@ assignKEGG <- function(input) {
   data <- input %>%
     getBlastTable
 
+  # Detect BLAST table type
+  if("target" %in% names(data)) {
+    TYPE <- 1
+  } else {
+    TYPE <- 2
+  }
+
   # Assign KOs
-  data <- data %>%
-    left_join(.PROKARYOTES.DAT, by = c("target" = "gene")) %>%
-    filter(! KO %in% NA) %>%
-    select(-target)
+  if(TYPE == 1) {
+    data <- data %>%
+      left_join(.PROKARYOTES.DAT, by = c("target" = "gene")) %>%
+      filter(! KO %in% NA) %>%
+      select(-target)
+  }
 
   # Assign gene names
   data <- data %>%
-    left_join(.KO00000, by = "KO")
+    left_join(.KO00000, by = "KO") %>%
+    select(sequence, KO, gene, evalue)
 
   # Compact data frame
   data <- data %>%
@@ -46,3 +56,4 @@ assignKEGG <- function(input) {
 
   return(results)
 }
+

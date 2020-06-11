@@ -2,13 +2,14 @@
 #'
 #' Read BLAST results in the tabular format (outfmt 6).
 #'
-#' @param input BLAST file
+#' @param file BLAST file
+#' @param evalue Double
 #' @return A keggR BLAST table
 #' @export
 #' @examples
 #' readBlast("examples/input_data.txt")
 
-readBlast <- function(file) {
+readBlast <- function(file, evalue = 1) {
   # Check input
   test_input <- suppressMessages(read_delim(file, delim = "\t", n_max = 1, col_names = F))
 
@@ -16,10 +17,16 @@ readBlast <- function(file) {
     stop("file does not look like a BLAST tabular table (outfmt 6)")
   }
 
+  EVALUE = evalue
+
   # Read data
   data <-  read_delim(file, delim = "\t",
                       col_names = c("qseqid", "sseqid", "pident", "length", "mismatch", "gapopen", "qstart", "qend", "sstart", "send", "evalue", "bitscore"),
-                      col_types = cols_only(qseqid = col_character(), sseqid = col_character(), evalue = col_double())) %>%
+                      col_types = cols_only(qseqid = col_character(), sseqid = col_character(), evalue = col_double()))
+
+  # Filter based on e-value
+  data <- data %>%
+    filter(evalue < EVALUE) %>%
     select(sequence = qseqid, target = sseqid, evalue)
 
   # Compact data frame

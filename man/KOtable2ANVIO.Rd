@@ -13,8 +13,8 @@ KOtable2ANVIO(input, source)
 A tibble
 }
 \description{
-KOtable2ANVIO
+KOtable2ANVIO.
 }
 \examples{
-KOtable2ANVIO(blast)
+KOtable2ANVIO(KOtable)
 }

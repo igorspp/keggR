@@ -1,6 +1,6 @@
 Package: keggR
 Title: A Tool to Parse the Results of BLAST/DIAMOND Similarity Searches Made Against the KEGG GENES Prokaryotes Database
-Version: 0.0.9.1
+Version: 0.9.1
 Authors@R: 
     person(given = "Igor",
            family = "Pessi",

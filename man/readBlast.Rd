@@ -4,10 +4,12 @@
 \alias{readBlast}
 \title{readBlast()}
 \usage{
-readBlast(file)
+readBlast(file, evalue = 1)
 }
 \arguments{
-\item{input}{BLAST file}
+\item{file}{BLAST file}
+
+\item{evalue}{Double}
 }
 \value{
 A keggR BLAST table
