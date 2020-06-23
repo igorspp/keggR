@@ -2,7 +2,6 @@
 
 export(KOtable2ANVIO)
 export(assignKEGG)
-export(assignKEGG2)
 export(filterKOtable)
 export(getBlastTable)
 export(getKOtable)
