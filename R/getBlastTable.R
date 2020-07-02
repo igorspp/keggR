@@ -16,7 +16,8 @@ getBlastTable <- function(input) {
 
   # De-compact data frame
   data <- input@data %>%
-    separate_rows(c(sequence, evalue), sep = "!!!")
+    separate_rows(c(sequence, evalue), sep = "!!!") %>%
+    mutate(evalue = as.double(evalue))
 
   return(data)
 }
